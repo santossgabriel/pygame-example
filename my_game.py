@@ -1,4 +1,5 @@
-import pygame, os
+import pygame
+import os
 
 pygame.init()
 screen = pygame.display.set_mode((400, 300))
@@ -8,6 +9,8 @@ x, y = 0, 0
 clock = pygame.time.Clock()
 
 _image_library = {}
+
+
 def get_image(path):
     global _image_library
     image = _image_library.get(path)
@@ -17,8 +20,8 @@ def get_image(path):
         _image_library[path] = image
     return image
 
-step = 1
 
+step = 1
 
 while not done:
     for event in pygame.event.get():
@@ -27,16 +30,20 @@ while not done:
 
     pressed = pygame.key.get_pressed()
 
-    if(pressed[pygame.K_LEFT] and x > 0): x -= 1
-    if(pressed[pygame.K_RIGHT] and x < 200): x += 1
-    if(pressed[pygame.K_UP] and y > 0): y -= 1
-    if(pressed[pygame.K_DOWN] and y < 200): y += 1; step += .3
+    if(pressed[pygame.K_LEFT] and x > 0):
+        x -= 1
+    if(pressed[pygame.K_RIGHT] and x < 200):
+        x += 1
+    if(pressed[pygame.K_UP] and y > 0):
+        y -= 1
+    if(pressed[pygame.K_DOWN] and y < 200):
+        y += 1
+        step += .3
 
-    if int(step) > 9: step = 1
+    if int(step) > 9:
+        step = 1
 
     pygame.display.flip()
-    screen.fill((0,0,0))
-    pygame.draw.rect(screen, (0, 128, 255), pygame.Rect(x, y, 60, 60))
-    screen.blit(get_image('walk_down/'+ str(int(step)) + '.png'), (100, y))
+    screen.fill((0, 0, 0))
+    screen.blit(get_image('walk_down/' + str(int(step)) + '.png'), (x, y))
     clock.tick(30)
-
